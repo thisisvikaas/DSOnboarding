@@ -1,0 +1,6 @@
+Approach Used:
+Perform Text Pre - Processing (remove stopwords, unwanted prefixes, whitespaces, nulls)
+Find all instances of stems (stemList) in the given list. 
+Check if these instances are drugs 
+Find all instances of drugs (drugList) in the given list
+Combine results from these steps to give the final result. (output.csv will contain the final list of drugs)
