@@ -15,9 +15,11 @@ from GetGenericStemNames import StemList
 def RemoveDuplicates(givenList):
     return list(dict.fromkeys(givenList))
 
+
 def FlattenList(givenList):
     givenList = [item for sublist in givenList for item in sublist]
     return givenList
+
 
 def Find_FlashText(myList, givenList, givenKeywords):
     processor = kp(case_sensitive=False)
@@ -40,8 +42,10 @@ def CleanText(givenList):
     EngStopWords = list(stopwords.words('english'))
     MyStopWords = ['g', 'kg', 'g/Kg', 'g/kg', 'percentage', 'and', 'placebo', 'therapy', 'test', 'tests', 'surgery',
                    'vitamin', 'Vitamin', 'agent', 'Agents', 'vaccine', 'Vaccine', 'alcohol', 'factor', 'lenses',
-                   'System','Lens', 'Gland', 'Oral', 'Gene', 'Stress', 'Drug', 'diet', 'acid', 'Drops', 'Soy', 'Placebo','Single oral dose','mg','iv infusion','%',
-                   'Exercise','A','B','C','D','E','1','2','ix','transplant','imaging','management','intensity','vision','ointment','fat','single','implant']
+                   'System', 'Lens', 'Gland', 'Oral', 'Gene', 'Stress', 'Drug', 'diet', 'acid', 'Drops', 'Soy',
+                   'Placebo', 'Single oral dose', 'mg', 'iv infusion', '%',
+                   'Exercise', 'A', 'B', 'C', 'D', 'E', '1', '2', 'ix', 'transplant', 'imaging', 'management',
+                   'intensity', 'vision', 'ointment', 'fat', 'single', 'implant']
     EngStopWords += MyStopWords
     StopWordDict = {" ": EngStopWords}
 
@@ -100,8 +104,7 @@ TrialDrugList = TrialFrame['drugs'].tolist()
 # Perform text pre-processing on the list
 # Replace all instances of weights g,mg,g/Kg,g/kg,percentage to NULL along with the numbers preceeding them
 WordListUpdated = CleanText(WordList)
-TrialDrugList = [re.sub(r'[(\',)]','',val) for val in TrialDrugList]
-
+TrialDrugList = [re.sub(r'[(\',)]', '', val) for val in TrialDrugList]
 
 # Extract Generic Name Stems from - https://druginfo.nlm.nih.gov/drugportal/jsp/drugportal/DrugNameGenericStems.jsp
 # StemList from GetGenericStemNames script - Contains all stems used in drug nomenclature
@@ -110,7 +113,7 @@ StemList = ' '.join(StemList).replace('-', '').split()
 # Check if the stems are present as substrings in WordListUpdated
 DrugsFromStemList = [drug for drug in WordListUpdated for stem in StemList if stem in drug]
 # Check for drugs from ClinicalTrials.gov
-DrugsCheck = DrugList + TrialDrugList
+DrugsCheck = DrugList + TrialDrugList + DrugsFromStemList
 DrugsList1 = []
 DrugsList2 = []
 # The givenList may contain shortened drug names Check for eg. Prolia in Prolia(Denosumab)
