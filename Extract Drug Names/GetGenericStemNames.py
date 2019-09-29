@@ -18,3 +18,7 @@ StemList = []
 for val in DrugStem:
     stems = val.contents[0]
     StemList.append(stems)
+
+
+
+
